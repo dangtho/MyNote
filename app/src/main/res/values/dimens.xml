@@ -2,4 +2,13 @@
 <resources>
     <dimen name="height_tool_bar">50dp</dimen>
     <dimen name="padding_tool_bar">16dp</dimen>
+    <!-- astro screen -->
+    <dimen name="margin_top_item_astro">20dp</dimen>
+    <dimen name="elevation_item_astro">10dp</dimen>
+    <dimen name="concer_radius_item_astro">10dp</dimen>
+    <dimen name="padding_start_end_item_astro">30dp</dimen>
+    <dimen name="padding_top_bottom_item_asstro">16dp</dimen>
+    <dimen name="margin_top_fragmain">50dp</dimen>
+    <dimen name="padding_fragment_main">16dp</dimen>
+    <dimen name="hieght_tool_bar">50dp</dimen>
 </resources>

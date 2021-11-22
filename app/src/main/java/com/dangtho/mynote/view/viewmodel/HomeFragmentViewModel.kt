@@ -1,46 +1,74 @@
 package com.dangtho.mynote.view.viewmodel
 
-import android.util.Log
-import com.dangtho.mynote.model.Weather
-import com.dangtho.mynote.network.ApiCalled
-import com.dangtho.mynote.network.BannersResponse
-import com.dangtho.mynote.network.BaseResponse
+import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.dangtho.mynote.data.Repository.MainRepository
+import com.dangtho.mynote.data.model.Weather
+import com.dangtho.mynote.data.model.WeatherForecast
+import com.dangtho.mynote.data.api.NetworkHelper
+import com.dangtho.mynote.data.model.Resource
 import com.dangtho.mynote.view.base.BaseViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class HomeFragmentViewModel : BaseViewModel() {
+@HiltViewModel
+class HomeFragmentViewModel @Inject constructor(
+    private val mainRepository: MainRepository,
+    private val networkHelper: NetworkHelper
+) : BaseViewModel() {
     companion object {
         const val TAG = "HomeFragmentViewModel"
     }
 
-    private var _tepmC = MutableStateFlow<String>("")
-    private var _weather = MutableStateFlow(Weather())
-    val tempC: StateFlow<String> = _tepmC
-    val weather: StateFlow<Weather> = _weather.asStateFlow()
-    val callBack = object : Callback<Weather> {
-        override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
-            if (response.isSuccessful && response.body() != null) {
-                _weather.value = response.body()!!
-                Log.e(TAG, "succss"+ weather.value.location?.countryLocation)
-            }
-        }
+    private var _weatherCurrentDay = MutableLiveData<Resource<Weather>>()
+    val weatherCurrentDay: LiveData<Resource<Weather>> = _weatherCurrentDay
+    private var _weatherForeCast = MutableLiveData<Resource<WeatherForecast>>()
+    val weatherForeCast: LiveData<Resource<WeatherForecast>> = _weatherForeCast
 
-        override fun onFailure(call: Call<Weather>, t: Throwable) {
-            Log.e(TAG, "error")
+
+    init {
+        coroutine.launch {
+            getForecastThree()
+            getForeCastWeatherCurrentDay()
         }
     }
 
-    fun getForeCastWeather() {
-        CoroutineScope(Dispatchers.IO).launch {
-            ApiCalled.getCurentWeather("Lang Son")?.enqueue(callBack)
+    private suspend fun getForecastThree() {
+        withContext(Dispatchers.IO) {
+            if (networkHelper.isNetworkConnected()) {
+                mainRepository.getForeCastWeather("Lang Son")?.let {
+                    if (it.isSuccessful) {
+                        _weatherForeCast.postValue(Resource.success(it.body()))
+                    } else {
+                        _weatherForeCast.postValue(Resource.error(it.errorBody().toString(), null))
+                    }
+                }
+            } else {
+                _weatherForeCast.postValue(Resource.error("No internet", null))
+            }
+        }
+    }
+
+    private suspend fun getForeCastWeatherCurrentDay() {
+        withContext(Dispatchers.IO) {
+            if (networkHelper.isNetworkConnected()) {
+                mainRepository.getCurrentWeather("Lang Son")?.let {
+                    if (it.isSuccessful) {
+                        _weatherCurrentDay.postValue(Resource.success(it.body()))
+                    } else {
+                        _weatherCurrentDay.postValue(
+                            Resource.error(
+                                it.errorBody().toString(),
+                                null
+                            )
+                        )
+                    }
+                }
+            } else {
+                _weatherCurrentDay.postValue(Resource.error("No internet", null))
+            }
         }
     }
 }

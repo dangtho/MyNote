@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card_view_blue"
+    android:paddingStart="@dimen/padding_start_end_item_astro"
+    android:paddingTop="@dimen/padding_top_bottom_item_asstro"
+    android:paddingEnd="@dimen/padding_start_end_item_astro"
+    android:paddingBottom="@dimen/padding_top_bottom_item_asstro">
+
+    <TextView
+        android:id="@+id/tv_feelike"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_feel_like"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_feelike_tempc"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tv_feelike"
+        app:layout_constraintStart_toStartOf="@id/tv_feelike"
+        app:layout_constraintTop_toBottomOf="@id/tv_feelike" />
+
+    <TextView
+        android:id="@+id/tv_uv"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_uv"
+        app:layout_constraintEnd_toStartOf="@id/tv_humidity"
+        app:layout_constraintStart_toStartOf="@id/tv_feelike"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_uv_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tv_uv"
+        app:layout_constraintTop_toBottomOf="@id/tv_uv" />
+
+    <TextView
+        android:id="@+id/tv_sunrise"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_item_astro"
+        android:text="@string/tv_sunrise"
+        app:layout_constraintEnd_toEndOf="@id/tv_feelike"
+        app:layout_constraintStart_toStartOf="@id/tv_feelike"
+        app:layout_constraintTop_toBottomOf="@id/tv_feelike_tempc" />
+
+    <TextView
+        android:id="@+id/tv_sunrise_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_sunrise"
+        app:layout_constraintTop_toBottomOf="@id/tv_sunrise" />
+
+    <TextView
+        android:id="@+id/tv_sun_set"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_item_astro"
+        android:text="@string/tv_sunset"
+        app:layout_constraintStart_toStartOf="@id/tv_uv"
+        app:layout_constraintTop_toBottomOf="@id/tv_uv_number" />
+
+    <TextView
+        android:id="@+id/tv_sun_set_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_sun_set"
+        app:layout_constraintTop_toBottomOf="@id/tv_sun_set" />
+
+    <TextView
+        android:id="@+id/tv_moonrise"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_item_astro"
+        android:text="@string/tv_moonrise"
+        app:layout_constraintStart_toStartOf="@id/tv_feelike"
+        app:layout_constraintTop_toBottomOf="@id/tv_sunrise_number" />
+
+    <TextView
+        android:id="@+id/tv_moonrise_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tv_moonrise"
+        app:layout_constraintStart_toStartOf="@id/tv_moonrise"
+        app:layout_constraintTop_toBottomOf="@id/tv_moonrise" />
+
+    <TextView
+        android:id="@+id/tv_moon_set"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_item_astro"
+        android:text="@string/tv_moonset"
+        app:layout_constraintStart_toStartOf="@id/tv_uv"
+        app:layout_constraintTop_toBottomOf="@id/tv_sun_set_number" />
+
+    <TextView
+        android:id="@+id/tv_moon_set_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_moon_set"
+        app:layout_constraintTop_toBottomOf="@id/tv_moon_set" />
+    <!--    column 3 -->
+    <TextView
+        android:id="@+id/tv_humidity"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_humidity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_uv" />
+
+    <TextView
+        android:id="@+id/tv_humidity_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tv_humidity"
+        app:layout_constraintTop_toBottomOf="@id/tv_humidity" />
+
+    <TextView
+        android:id="@+id/tv_maybe_rain"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_item_astro"
+        android:text="@string/tv_maybe_rain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_humidity_number" />
+
+    <TextView
+        android:id="@+id/tv_maybe_rain_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@id/tv_maybe_rain"
+        app:layout_constraintTop_toBottomOf="@id/tv_maybe_rain" />
+
+    <TextView
+        android:id="@+id/tv_wind_speed"
+        style="@style/AstroWeatherTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_item_astro"
+        android:text="@string/tv_wind_speed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_maybe_rain_number" />
+
+    <TextView
+        android:id="@+id/tv_wind_speed_number"
+        style="@style/AstroWeatherNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@id/tv_wind_speed"
+        app:layout_constraintTop_toBottomOf="@id/tv_wind_speed" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,68 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@color/blue"
+    android:padding="@dimen/padding_fragment_main">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:id="@+id/layout_progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:visibility="gone">
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_fore_cast_five_day"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/margin_top_fragmain"
+                android:background="@drawable/bg_button"
+                android:gravity="center"
+                android:text="@string/forecast_5_day"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/_card_item_astro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_fragmain"
+                android:elevation="@dimen/elevation_item_astro"
+                app:cardCornerRadius="@dimen/concer_radius_item_astro"
+                app:layout_constraintEnd_toEndOf="@id/rcv_forecast_hour_day"
+                app:layout_constraintStart_toStartOf="@id/rcv_forecast_hour_day"
+                app:layout_constraintTop_toBottomOf="@id/rcv_forecast_hour_day">
+
+                <include
+                    android:id="@+id/item_astro"
+                    layout="@layout/item_astro_wether" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_forecast_hour_day"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_fragmain"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_fore_cast_five_day" />
+
+            <include
+                layout="@layout/item_about_forecast_api_weather"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/_card_item_astro" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/collap_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@color/blue">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:layout_collapseMode="parallax">
+
+                <ImageView
+                    android:id="@+id/img_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/icon_dot_menu"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_condition"
+                    app:layout_constraintEnd_toStartOf="@id/tv_condition"
+                    app:layout_constraintTop_toTopOf="@id/tv_condition" />
 
                 <TextView
                     android:id="@+id/tv_temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@{data.weather.current.tempCCurrent}"
+                    android:layout_marginTop="100dp"
+                    android:text="@string/tempf"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_condition"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tool_bar" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
                     android:id="@+id/tv_condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="nhiều mây"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/rcv_forecast_three_day"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_temp" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_temp"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
-                <include
-                    android:id="@+id/tool_bar"
-                    layout="@layout/tool_bar"
-                    android:elevation="10dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_forecast_three_day"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_fragmain"
+                    android:clipToPadding="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition"
+                    app:layout_constraintVertical_chainStyle="packed" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <com.dangtho.mynote.view.customview.MyToolBar
+                android:id="@+id/my_tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/hieght_tool_bar"
+                android:elevation="@dimen/cardview_default_elevation"
+                app:layout_collapseMode="pin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <data>
-
-        <variable
-            name="data"
-            type="com.dangtho.mynote.view.viewmodel.HomeFragmentViewModel" />
-    </data>
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

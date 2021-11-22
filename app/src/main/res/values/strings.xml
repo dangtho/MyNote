@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">MyNote</string>
+    <string name="tempc_temc">%s°C/%s°C</string>
+    <string name="tempf">%s°f</string>
+    <string name="tempC">%s°C</string>
+    <string name="today_format">%s. %s</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="today">Today</string>
+    <!-- astro screen   -->
+    <string name="tv_feel_like">feel like</string>
+    <string name="tv_sunrise">Sunrise</string>
+    <string name="tv_moonrise">Moonrise</string>
+    <string name="tv_uv">UV</string>
+    <string name="tv_sunset">sunset</string>
+    <string name="tv_moonset">Moonset</string>
+    <string name="tv_humidity">humidity</string>
+    <string name="tv_maybe_rain">maybe rain</string>
+    <string name="tv_wind_speed">wind speed</string>
+    <string name="weather">Weather is taken from https://www.weatherapi.com</string>
+    <string name="forecast_5_day">Forecast 5 Day</string>
+
 </resources>
