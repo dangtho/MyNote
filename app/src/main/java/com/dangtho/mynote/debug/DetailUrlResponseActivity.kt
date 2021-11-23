@@ -1,17 +1,22 @@
 package com.dangtho.mynote.debug
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.dangtho.mynote.databinding.FragmentDetailUrlBinding
 import com.dangtho.mynote.view.base.BaseActivity
-import java.lang.StringBuilder
 
 class DetailUrlResponseActivity :
     BaseActivity<DetailUrlResponseViewModel, FragmentDetailUrlBinding>() {
-    companion object{
-        val DATA_DETAILS_RESPONES = "data_detail_reponse"
+    companion object {
+        const val DATA_DETAILS_RESPONES = "data_detail_reponse"
     }
+
     private lateinit var binding: FragmentDetailUrlBinding
     private var urlEntityDetails: String? = null
+    private val mViewModel: DetailUrlResponseViewModel by viewModels()
+    override fun setViewModel() {
+        this.viewModel = mViewModel
+    }
 
     override fun setBinding() {
         _binding = FragmentDetailUrlBinding.inflate(layoutInflater)
@@ -30,7 +35,7 @@ class DetailUrlResponseActivity :
         val stringBuilder = StringBuilder()
         var indent = ""
         json.forEachIndexed { _, c ->
-            when(c.toString()) {
+            when (c.toString()) {
                 "{" -> {
                     stringBuilder.append("$c")
                     indent = "\t"
@@ -43,7 +48,7 @@ class DetailUrlResponseActivity :
                     stringBuilder.append(c)
                 }
                 "}" -> {
-                    indent = indent.replaceFirst("\t","")
+                    indent = indent.replaceFirst("\t", "")
                     stringBuilder.append("\n$c")
                 }
                 "," -> {
@@ -54,8 +59,5 @@ class DetailUrlResponseActivity :
             }
         }
         return stringBuilder.toString()
-    }
-
-    override fun setViewModel() {
     }
 }

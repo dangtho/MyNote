@@ -1,4 +1,4 @@
-package com.dangtho.mynote.data.model
+package com.dangtho.mynote.data.model.base
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 
@@ -18,6 +18,7 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
 
     }
 }
+
 enum class Status {
     SUCCESS,
     ERROR,

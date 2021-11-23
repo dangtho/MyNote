@@ -24,7 +24,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class MyNoteApplicationModule {
 
+    @BaseURL
     @Provides
+    @Singleton
     fun provideBaseUrl() = "https://api.weatherapi.com/"
 
     @Provides
@@ -33,30 +35,40 @@ class MyNoteApplicationModule {
 
     @Provides
     @Singleton
-    fun provideOkhttp(interceptor: Interceptor) = OkHttpClient.Builder()
+    fun provideOkhttp(interceptor: Interceptor): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(interceptor)
         .build()
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient, BASE_URL: String) = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-        .build()
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
+    fun provideRetrofit(okHttpClient: OkHttpClient, @BaseURL BASE_URL: String): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
     @Provides
     @Singleton
     fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
 
+    @DataBaseName
     @Provides
     @Singleton
-    fun provideDataBase(@ApplicationContext context: Context): AppDataBase =
-        Room.databaseBuilder(context, AppDataBase::class.java, "MyNote.db")
+    fun provideDataBaseName(): String = "myNote.db"
+
+    @Provides
+    @Singleton
+    fun provideDataBase(
+        @ApplicationContext context: Context,
+        @DataBaseName dataBaseName: String
+    ): AppDataBase =
+        Room.databaseBuilder(context, AppDataBase::class.java, dataBaseName)
             .allowMainThreadQueries().build()
 }
 

@@ -7,7 +7,6 @@ class ForeCast {
     @SerializedName("forecastday")
     var forecastDay: List<ForeCastDay>? = null
 
-
     class ForeCastDay {
 
         @SerializedName("date")
@@ -47,6 +46,7 @@ class ForeCast {
 
             @SerializedName("condition")
             var condition: Condition? = null
+
             @SerializedName("daily_will_it_rain")
             var mayBeRain: String? = null
             override fun toString(): String {

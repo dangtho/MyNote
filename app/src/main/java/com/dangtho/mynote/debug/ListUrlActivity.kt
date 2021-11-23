@@ -54,7 +54,8 @@ class ListUrlActivity : BaseActivity<ListUrLViewModel, ActivityListUrlBinding>()
     }
 
     private fun setDataViewModel() {
-        viewModel?.allUrl?.observe(this, Observer {
+        viewModel?.getAllUrl()?.observe(this, Observer {
+            it ?: return@Observer
             urlAdapter?.setListUrl(it)
         })
     }

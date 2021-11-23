@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.dangtho.mynote.R
-import com.dangtho.mynote.databinding.ItemHourWeatherBinding
-import com.dangtho.mynote.databinding.ItemWeatherBinding
 import com.dangtho.mynote.data.model.ForeCast
 import com.dangtho.mynote.data.util.DateUtil
 import com.dangtho.mynote.data.util.StateHourCurrent
+import com.dangtho.mynote.databinding.ItemHourWeatherBinding
+import com.dangtho.mynote.databinding.ItemWeatherBinding
 import com.dangtho.mynote.view.base.BaseAdapter
 import com.dangtho.mynote.view.base.BaseViewHodler
 

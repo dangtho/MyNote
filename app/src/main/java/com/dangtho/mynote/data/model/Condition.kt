@@ -12,12 +12,6 @@ class Condition {
     @SerializedName("icon")
     var icon: String = ""
 
-    constructor(text: String, code: String, icon: String) {
-        this.text = text
-        this.code = code
-        this.icon = icon
-    }
-
     override fun toString(): String {
         return "Condition(text='$text', code='$code', icon='$icon')"
     }

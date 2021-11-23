@@ -38,6 +38,7 @@ class DateUtil {
             cal.time = date
             return cal
         }
+
         fun getStringFromLong(time: Long): String {
             val date = Date(time)
             return date.toString()
@@ -61,13 +62,13 @@ class DateUtil {
         }
 
         /**
-         * get today or tommorow
+         * get today or tomorrow
          */
         fun dayString(date: String): String {
             val hourCal = getDateFromString(date, FORMAT_DATE)
             return when {
-                hourCal.get(Calendar.DATE) - nowCal.get(Calendar.DATE) == 1 -> "Tomorrow"
-                hourCal.get(Calendar.DATE) - nowCal.get(Calendar.DATE) == 0 -> "Today"
+                hourCal.get(Calendar.DATE) - nowCal.get(Calendar.DATE) == 1 -> TOMORROW
+                hourCal.get(Calendar.DATE) - nowCal.get(Calendar.DATE) == 0 -> TODAY
                 else -> getDayOfWeek(hourCal.get(Calendar.DAY_OF_WEEK))
             }
         }

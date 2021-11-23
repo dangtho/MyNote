@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.Toolbar
-import com.dangtho.mynote.R
 import com.dangtho.mynote.databinding.MyToolBarBinding
 
 class MyToolBar : Toolbar {
@@ -40,6 +39,7 @@ class MyToolBar : Toolbar {
     fun setTitleToolBar(title: String?) {
         binding.tvTitlePlace.text = title
     }
+
     fun setUpNavigationRightListener(navigationRightListener: () -> Unit) {
         this.navigationRightListener = navigationRightListener
     }

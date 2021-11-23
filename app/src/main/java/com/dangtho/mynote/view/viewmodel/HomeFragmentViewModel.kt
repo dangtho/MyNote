@@ -1,13 +1,12 @@
 package com.dangtho.mynote.view.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dangtho.mynote.data.Repository.MainRepository
+import com.dangtho.mynote.data.api.NetworkHelper
 import com.dangtho.mynote.data.model.Weather
 import com.dangtho.mynote.data.model.WeatherForecast
-import com.dangtho.mynote.data.api.NetworkHelper
-import com.dangtho.mynote.data.model.Resource
+import com.dangtho.mynote.data.model.base.Resource
 import com.dangtho.mynote.view.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*

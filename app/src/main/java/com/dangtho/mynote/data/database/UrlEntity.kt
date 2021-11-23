@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class UrlEntity {
+data class UrlEntity(
     @PrimaryKey(autoGenerate = true)
-    var urlId: Int = 0
+    var urlId: Int = 0,
 
     @ColumnInfo(name = "url_link")
-    var urlLink: String = ""
+    var urlLink: String = "",
 
     @ColumnInfo(name = "date_time")
-    var dateTime: Long = 0L
+    var dateTime: Long = 0L,
 
     @ColumnInfo(name = "detail_response")
     var details: String = ""
-}
+)

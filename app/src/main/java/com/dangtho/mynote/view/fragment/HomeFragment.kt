@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.dangtho.mynote.R
 import com.dangtho.mynote.data.model.ForeCast
-import com.dangtho.mynote.data.model.Status
 import com.dangtho.mynote.data.model.WeatherCurrent
+import com.dangtho.mynote.data.model.base.Status
 import com.dangtho.mynote.databinding.FragmentMainBinding
 import com.dangtho.mynote.debug.ListUrlActivity
 import com.dangtho.mynote.view.adapter.ForeCastHourDayAdapter

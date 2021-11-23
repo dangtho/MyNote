@@ -11,8 +11,8 @@ open class Weather {
     override fun toString(): String {
         return "Weather(location=$location, current=$current)"
     }
-
 }
+
 class WeatherForecast {
     @SerializedName("location")
     var location: Location? = null
