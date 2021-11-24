@@ -14,16 +14,15 @@ import com.dangtho.mynote.data.model.ForeCast
 import com.dangtho.mynote.data.model.WeatherCurrent
 import com.dangtho.mynote.data.model.base.Status
 import com.dangtho.mynote.databinding.FragmentMainBinding
-import com.dangtho.mynote.debug.ListUrlActivity
+import com.dangtho.mynote.view.debug.ListUrlActivity
 import com.dangtho.mynote.view.adapter.ForeCastHourDayAdapter
 import com.dangtho.mynote.view.adapter.ForeCastThreedayAdapter
 import com.dangtho.mynote.view.base.BaseFragment
 import com.dangtho.mynote.view.viewmodel.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class HomeFragment : BaseFragment<HomeFragmentViewModel>(), View.OnClickListener {
-    private var _binding: FragmentMainBinding? = null
+//@AndroidEntryPoint
+class HomeFragment : BaseFragment<HomeFragmentViewModel, FragmentMainBinding>(), View.OnClickListener {
     private lateinit var binding: FragmentMainBinding
     private var foreCastThreedayAdapter: ForeCastThreedayAdapter? = null
     private var foreCastHourDayAdapter: ForeCastHourDayAdapter? = null
@@ -42,7 +41,6 @@ class HomeFragment : BaseFragment<HomeFragmentViewModel>(), View.OnClickListener
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater)
         binding = _binding!!
         return binding.root
     }
@@ -168,6 +166,10 @@ class HomeFragment : BaseFragment<HomeFragmentViewModel>(), View.OnClickListener
 
     override fun onClick(view: View?) {
 
+    }
+
+    override fun setBinding() {
+        _binding = FragmentMainBinding.inflate(layoutInflater)
     }
 }
 

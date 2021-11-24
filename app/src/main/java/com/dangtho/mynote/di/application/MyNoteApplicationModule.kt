@@ -7,6 +7,8 @@ import com.dangtho.mynote.data.api.ApiHelperImpl
 import com.dangtho.mynote.data.api.ApiService
 import com.dangtho.mynote.data.api.CustomInterceptor
 import com.dangtho.mynote.data.database.AppDataBase
+import com.dangtho.mynote.data.database.UrlHelper
+import com.dangtho.mynote.data.database.UrlHelperImpl
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -23,11 +25,15 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class MyNoteApplicationModule {
+    companion object {
+        const val BASE_URL_WEATHER = "https://api.weatherapi.com/"
+        const val BASE_URL_REQRES_In = "https://reqres.in/"
+    }
 
     @BaseURL
     @Provides
     @Singleton
-    fun provideBaseUrl() = "https://api.weatherapi.com/"
+    fun provideBaseUrl() = BASE_URL_REQRES_In
 
     @Provides
     @Singleton
@@ -70,6 +76,14 @@ class MyNoteApplicationModule {
     ): AppDataBase =
         Room.databaseBuilder(context, AppDataBase::class.java, dataBaseName)
             .allowMainThreadQueries().build()
+
+    @Provides
+    @Singleton
+    fun urlDao(appDataBase: AppDataBase) = appDataBase.urlLinkDao()
+
+    @Provides
+    @Singleton
+    fun urlHelper(urlHelper: UrlHelperImpl): UrlHelper = urlHelper
 }
 
 @Qualifier

@@ -1,4 +1,4 @@
-package com.dangtho.mynote.debug
+package com.dangtho.mynote.view.debug
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -59,5 +59,9 @@ class DetailUrlResponseActivity :
             }
         }
         return stringBuilder.toString()
+    }
+
+    override fun setMyToolBar() {
+        TODO("Not yet implemented")
     }
 }

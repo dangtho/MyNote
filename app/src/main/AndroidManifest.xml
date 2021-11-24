@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.MainActivity" />
-        <activity android:name=".debug.ListUrlActivity" />
-        <activity android:name=".debug.DetailUrlResponseActivity" />
+        <activity android:name=".view.debug.ListUrlActivity" />
+        <activity android:name=".view.debug.DetailUrlResponseActivity" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

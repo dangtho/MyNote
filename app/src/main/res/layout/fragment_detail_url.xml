@@ -33,6 +33,6 @@
 
         <variable
             name="data"
-            type="com.dangtho.mynote.debug.DetailUrlResponseViewModel" />
+            type="com.dangtho.mynote.view.debug.DetailUrlResponseViewModel" />
     </data>
 </layout>

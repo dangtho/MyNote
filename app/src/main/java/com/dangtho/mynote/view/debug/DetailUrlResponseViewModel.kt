@@ -1,4 +1,4 @@
-package com.dangtho.mynote.debug
+package com.dangtho.mynote.view.debug
 
 import androidx.lifecycle.MutableLiveData
 import com.dangtho.mynote.view.base.BaseViewModel

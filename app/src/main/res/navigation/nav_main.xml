@@ -3,9 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/LoginFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.dangtho.mynote.view.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:id="@+id/LoginFragment"
+        android:name="com.dangtho.mynote.view.fragment.LoginFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_LoginFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.dangtho.mynote.view.fragment.UserFragment"
+        android:label="UserFragment" />
 </navigation>

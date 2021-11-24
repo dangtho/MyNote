@@ -1,4 +1,4 @@
-package com.dangtho.mynote.debug
+package com.dangtho.mynote.view.debug
 
 import android.content.Intent
 import android.os.Bundle
@@ -58,5 +58,9 @@ class ListUrlActivity : BaseActivity<ListUrLViewModel, ActivityListUrlBinding>()
             it ?: return@Observer
             urlAdapter?.setListUrl(it)
         })
+    }
+
+    override fun setMyToolBar() {
+        TODO("Not yet implemented")
     }
 }

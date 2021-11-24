@@ -1,4 +1,4 @@
-package com.dangtho.mynote.debug
+package com.dangtho.mynote.view.debug
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

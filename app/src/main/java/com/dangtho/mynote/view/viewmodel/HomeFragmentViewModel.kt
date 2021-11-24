@@ -2,11 +2,11 @@ package com.dangtho.mynote.view.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dangtho.mynote.data.Repository.MainRepository
+import com.dangtho.mynote.data.Repository.MainApiRepository
 import com.dangtho.mynote.data.api.NetworkHelper
 import com.dangtho.mynote.data.model.Weather
 import com.dangtho.mynote.data.model.WeatherForecast
-import com.dangtho.mynote.data.model.base.Resource
+import com.dangtho.mynote.data.model.base.Result
 import com.dangtho.mynote.view.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -14,17 +14,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeFragmentViewModel @Inject constructor(
-    private val mainRepository: MainRepository,
+    private val mainApiRepository: MainApiRepository,
     private val networkHelper: NetworkHelper
 ) : BaseViewModel() {
     companion object {
         const val TAG = "HomeFragmentViewModel"
     }
 
-    private var _weatherCurrentDay = MutableLiveData<Resource<Weather>>()
-    val weatherCurrentDay: LiveData<Resource<Weather>> = _weatherCurrentDay
-    private var _weatherForeCast = MutableLiveData<Resource<WeatherForecast>>()
-    val weatherForeCast: LiveData<Resource<WeatherForecast>> = _weatherForeCast
+    private var _weatherCurrentDay = MutableLiveData<Result<Weather>>()
+    val weatherCurrentDay: LiveData<Result<Weather>> = _weatherCurrentDay
+    private var _weatherForeCast = MutableLiveData<Result<WeatherForecast>>()
+    val weatherForeCast: LiveData<Result<WeatherForecast>> = _weatherForeCast
 
 
     init {
@@ -37,15 +37,15 @@ class HomeFragmentViewModel @Inject constructor(
     private suspend fun getForecastThree() {
         withContext(Dispatchers.IO) {
             if (networkHelper.isNetworkConnected()) {
-                mainRepository.getForeCastWeather("Lang Son")?.let {
+                mainApiRepository.getForeCastWeather("Lang Son")?.let {
                     if (it.isSuccessful) {
-                        _weatherForeCast.postValue(Resource.success(it.body()))
+                        _weatherForeCast.postValue(Result.success(it.body()))
                     } else {
-                        _weatherForeCast.postValue(Resource.error(it.errorBody().toString(), null))
+                        _weatherForeCast.postValue(Result.error(it.errorBody().toString(), null))
                     }
                 }
             } else {
-                _weatherForeCast.postValue(Resource.error("No internet", null))
+                _weatherForeCast.postValue(Result.error("No internet", null))
             }
         }
     }
@@ -53,12 +53,12 @@ class HomeFragmentViewModel @Inject constructor(
     private suspend fun getForeCastWeatherCurrentDay() {
         withContext(Dispatchers.IO) {
             if (networkHelper.isNetworkConnected()) {
-                mainRepository.getCurrentWeather("Lang Son")?.let {
+                mainApiRepository.getCurrentWeather("Lang Son")?.let {
                     if (it.isSuccessful) {
-                        _weatherCurrentDay.postValue(Resource.success(it.body()))
+                        _weatherCurrentDay.postValue(Result.success(it.body()))
                     } else {
                         _weatherCurrentDay.postValue(
-                            Resource.error(
+                            Result.error(
                                 it.errorBody().toString(),
                                 null
                             )
@@ -66,7 +66,7 @@ class HomeFragmentViewModel @Inject constructor(
                     }
                 }
             } else {
-                _weatherCurrentDay.postValue(Resource.error("No internet", null))
+                _weatherCurrentDay.postValue(Result.error("No internet", null))
             }
         }
     }
