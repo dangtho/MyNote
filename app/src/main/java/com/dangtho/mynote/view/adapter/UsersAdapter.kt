@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.dangtho.mynote.R
-import com.dangtho.mynote.data.model.N_PersonInfoResponse
+import com.dangtho.mynote.data.model.PersonInfoResponse
 import com.dangtho.mynote.databinding.ItemUsersBinding
 import com.dangtho.mynote.view.base.BaseAdapter
 import com.dangtho.mynote.view.base.BaseViewHodler
 
-class UsersAdapter : BaseAdapter<N_PersonInfoResponse>() {
-    fun setListUser(list: List<N_PersonInfoResponse>?) {
+class UsersAdapter : BaseAdapter<PersonInfoResponse>() {
+    fun setListUser(list: List<PersonInfoResponse>?) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -18,7 +18,7 @@ class UsersAdapter : BaseAdapter<N_PersonInfoResponse>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseViewHodler<N_PersonInfoResponse> {
+    ): BaseViewHodler<PersonInfoResponse> {
         return UserViewHolder(
             ItemUsersBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -28,7 +28,7 @@ class UsersAdapter : BaseAdapter<N_PersonInfoResponse>() {
         )
     }
 
-    override fun onBindViewHolder(holder: BaseViewHodler<N_PersonInfoResponse>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHodler<PersonInfoResponse>, position: Int) {
         list ?: return
         holder.binData(list!![position])
     }
@@ -39,8 +39,8 @@ class UsersAdapter : BaseAdapter<N_PersonInfoResponse>() {
 }
 
 class UserViewHolder(private val binding: ItemUsersBinding) :
-    BaseViewHodler<N_PersonInfoResponse>(binding.root) {
-    override fun binData(item: N_PersonInfoResponse) {
+    BaseViewHodler<PersonInfoResponse>(binding.root) {
+    override fun binData(item: PersonInfoResponse) {
         binding.tvFirstName.text = item.firstName
         binding.tvLastName.text = item.lastName
         Glide.with(binding.root.context).load(item.avatar)

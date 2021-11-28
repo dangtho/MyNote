@@ -20,17 +20,13 @@ class CustomInterceptor @Inject constructor(private val mainDataBaseRepository: 
 
     override fun intercept(chain: Interceptor.Chain): Response {
         Log.e(TAG, chain.request().url().toString())
-
+        val request = chain.request()
+        val response = chain.proceed(request)
+        val cal = Calendar.getInstance()
+        val urlEntity = UrlEntity(request.url().toString(), cal.timeInMillis, response.body()?.string().toString(),)
         CoroutineScope(Dispatchers.IO).launch {
-            val cal = Calendar.getInstance()
-            val request = chain.request()
-            val response = chain.proceed(request)
-            var urlEntity = UrlEntity()
-            urlEntity.urlLink = request.url().toString()
-            urlEntity.details = response.body()?.string().toString()
-            urlEntity.dateTime = cal.timeInMillis
             mainDataBaseRepository.insert(urlEntity)
         }
-        return chain.proceed(chain.request())
+        return chain.proceed(request)
     }
 }

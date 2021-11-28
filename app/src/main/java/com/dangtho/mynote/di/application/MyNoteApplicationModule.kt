@@ -7,6 +7,7 @@ import com.dangtho.mynote.data.api.ApiHelperImpl
 import com.dangtho.mynote.data.api.ApiService
 import com.dangtho.mynote.data.api.CustomInterceptor
 import com.dangtho.mynote.data.database.AppDataBase
+import com.dangtho.mynote.data.database.MyTypeConverters
 import com.dangtho.mynote.data.database.UrlHelper
 import com.dangtho.mynote.data.database.UrlHelperImpl
 import com.google.gson.GsonBuilder
@@ -75,11 +76,17 @@ class MyNoteApplicationModule {
         @DataBaseName dataBaseName: String
     ): AppDataBase =
         Room.databaseBuilder(context, AppDataBase::class.java, dataBaseName)
-            .allowMainThreadQueries().build()
+            .addMigrations(AppDataBase.migration_1_2, AppDataBase.migration_2_3)
+            .allowMainThreadQueries()
+            .build()
 
     @Provides
     @Singleton
     fun urlDao(appDataBase: AppDataBase) = appDataBase.urlLinkDao()
+
+    @Provides
+    @Singleton
+    fun userDao(appDataBase: AppDataBase) = appDataBase.userDao()
 
     @Provides
     @Singleton

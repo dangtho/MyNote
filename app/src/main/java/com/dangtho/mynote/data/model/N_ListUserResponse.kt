@@ -16,5 +16,5 @@ class N_ListUserResponse {
     var totalPage: String = ""
 
     @SerializedName("data")
-    var userList: List<N_PersonInfoResponse>? = null
+    var userList: List<PersonInfoResponse>? = null
 }

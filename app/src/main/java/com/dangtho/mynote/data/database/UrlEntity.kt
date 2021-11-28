@@ -6,8 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class UrlEntity(
-    @PrimaryKey(autoGenerate = true)
-    var urlId: Int = 0,
 
     @ColumnInfo(name = "url_link")
     var urlLink: String = "",
@@ -16,5 +14,8 @@ data class UrlEntity(
     var dateTime: Long = 0L,
 
     @ColumnInfo(name = "detail_response")
-    var details: String = ""
+    var details: String = "",
+
+    @PrimaryKey(autoGenerate = true)
+    var urlId: Int = 0,
 )
