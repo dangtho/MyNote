@@ -3,8 +3,8 @@ package com.dangtho.mynote.data.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import com.dangtho.mynote.data.model.LoginResponse
-import com.dangtho.mynote.data.model.PersonInfoResponse
+import com.dangtho.mynote.data.model.PersonEntity
+import com.dangtho.mynote.data.model.UserEntity
 
 @Dao
 interface BaseDao<T> {
@@ -26,10 +26,16 @@ interface UrlDao : BaseDao<UrlEntity> {
 }
 
 @Dao
-interface UserDao : BaseDao<PersonInfoResponse> {
+interface UserDao : BaseDao<UserEntity> {
     @Query("SELECT * FROM users ORDER BY first_name DESC")
-    fun getAllUser(): LiveData<List<PersonInfoResponse>>
+    fun getAllUser(): List<UserEntity>
 
     @Query("SELECT * FROM users WHERE id = :id")
-    fun getToken(id: String): LiveData<PersonInfoResponse>
+    fun getToken(id: String): LiveData<UserEntity>
+}
+
+@Dao
+interface PersonDao : BaseDao<PersonEntity> {
+    @Query("SELECT * FROM tblPersonInfo ORDER BY first_name DESC")
+    fun getAllUser(): LiveData<List<PersonEntity>>?
 }

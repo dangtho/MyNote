@@ -1,12 +1,18 @@
 package com.dangtho.mynote.di.application
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.dangtho.mynote.data.api.ApiHelper
 import com.dangtho.mynote.data.api.ApiHelperImpl
 import com.dangtho.mynote.data.api.ApiService
 import com.dangtho.mynote.data.api.CustomInterceptor
 import com.dangtho.mynote.data.database.AppDataBase
+import com.dangtho.mynote.data.database.AppDataBase.Companion.migration_1_2
+import com.dangtho.mynote.data.database.AppDataBase.Companion.migration_2_3
+import com.dangtho.mynote.data.database.AppDataBase.Companion.migration_3_4
 import com.dangtho.mynote.data.database.MyTypeConverters
 import com.dangtho.mynote.data.database.UrlHelper
 import com.dangtho.mynote.data.database.UrlHelperImpl
@@ -16,6 +22,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -76,8 +85,19 @@ class MyNoteApplicationModule {
         @DataBaseName dataBaseName: String
     ): AppDataBase =
         Room.databaseBuilder(context, AppDataBase::class.java, dataBaseName)
-            .addMigrations(AppDataBase.migration_1_2, AppDataBase.migration_2_3)
-            .allowMainThreadQueries()
+            .addMigrations(migration_1_2, migration_2_3, migration_3_4)
+            .addCallback(object : RoomDatabase.Callback() {
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        db.beginTransaction()
+                        db.execSQL(AppDataBase.getStringSql(context))
+                        Log.e("Vvvvvvvv", "" + AppDataBase.getStringSql(context))
+                        db.endTransaction()
+                    }
+                }
+            })
             .build()
 
     @Provides
@@ -87,6 +107,10 @@ class MyNoteApplicationModule {
     @Provides
     @Singleton
     fun userDao(appDataBase: AppDataBase) = appDataBase.userDao()
+
+    @Provides
+    @Singleton
+    fun personDao(appDataBase: AppDataBase) = appDataBase.personDao()
 
     @Provides
     @Singleton

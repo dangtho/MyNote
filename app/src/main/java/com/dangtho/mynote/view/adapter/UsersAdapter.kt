@@ -1,16 +1,24 @@
 package com.dangtho.mynote.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.dangtho.mynote.R
-import com.dangtho.mynote.data.model.PersonInfoResponse
+import com.dangtho.mynote.data.model.UserEntity
 import com.dangtho.mynote.databinding.ItemUsersBinding
 import com.dangtho.mynote.view.base.BaseAdapter
 import com.dangtho.mynote.view.base.BaseViewHodler
+import com.dangtho.mynote.view.viewmodel.UserFragmentViewModel
 
-class UsersAdapter : BaseAdapter<PersonInfoResponse>() {
-    fun setListUser(list: List<PersonInfoResponse>?) {
+class UsersAdapter(
+    private val viewModle: UserFragmentViewModel,
+    private val lifeCycle: LifecycleOwner
+) : BaseAdapter<UserEntity>() {
+    fun setListUser(list: List<UserEntity>?) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -18,7 +26,7 @@ class UsersAdapter : BaseAdapter<PersonInfoResponse>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseViewHodler<PersonInfoResponse> {
+    ): BaseViewHodler<UserEntity> {
         return UserViewHolder(
             ItemUsersBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -28,19 +36,21 @@ class UsersAdapter : BaseAdapter<PersonInfoResponse>() {
         )
     }
 
-    override fun onBindViewHolder(holder: BaseViewHodler<PersonInfoResponse>, position: Int) {
-        list ?: return
-        holder.binData(list!![position])
+    override fun onBindViewHolder(holder: BaseViewHodler<UserEntity>, position: Int) {
+        Log.e("Vvvvvvvv", "lis $position" + viewModle.getItem(position).value.firstName)
+//        lifeCycle.lifecycleScope.
+//        viewModle.getItem(position)
+        holder.binData(viewModle.getItem(position).value)
     }
 
     override fun getItemCount(): Int {
-        return list?.size ?: 0
+        return viewModle.listUser.value.size
     }
 }
 
 class UserViewHolder(private val binding: ItemUsersBinding) :
-    BaseViewHodler<PersonInfoResponse>(binding.root) {
-    override fun binData(item: PersonInfoResponse) {
+    BaseViewHodler<UserEntity>(binding.root) {
+    override fun binData(item: UserEntity) {
         binding.tvFirstName.text = item.firstName
         binding.tvLastName.text = item.lastName
         Glide.with(binding.root.context).load(item.avatar)

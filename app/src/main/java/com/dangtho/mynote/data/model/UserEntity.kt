@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import java.sql.Date
 
 @Entity(tableName = "users")
-class PersonInfoResponse {
+class UserEntity {
 
     @PrimaryKey
     @SerializedName("id")
@@ -30,8 +30,9 @@ class PersonInfoResponse {
 
     @ColumnInfo(name = "pub_year", defaultValue = "0")
     var pub_year: Int = 0
+    @ColumnInfo(name = "migr4", defaultValue = "0")
+    var migr4: Int = 0
 
-    @ColumnInfo(name = "token", defaultValue = "null")
-    @TypeConverters(MyTypeConverters::class)
-    var token: LoginResponse? = null
+    @ColumnInfo(name = "loginToken", defaultValue = "null")
+    var loginToken: LoginResponse? = null
 }
