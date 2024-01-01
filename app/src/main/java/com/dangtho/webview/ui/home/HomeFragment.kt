@@ -1,16 +1,17 @@
 package com.dangtho.webview.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.dangtho.webview.R
+import com.dangtho.webview.MainActivity
 import com.dangtho.webview.databinding.FragmentHomeBinding
 import com.dangtho.webview.ui.home.adapter.MyViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
 
@@ -37,14 +38,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            viewpager.adapter = MyViewPagerAdapter(parentFragmentManager)
-            tabLayout.setupWithViewPager(viewpager)
+            val title = arrayOf("HOME", "NOTIFY", "DASHBOAR")
+            viewpager.isUserInputEnabled = false
+            viewpager.adapter = (activity as? MainActivity)?.let { MyViewPagerAdapter(it) }
+            TabLayoutMediator(tabLayout, viewpager) { tab: TabLayout.Tab, position: Int ->
+                tab.text = title[position]
+
+            }.attach()
         }
     }
 
-    fun noScroll() {
-        binding.viewpager.setSiwpe(true)
-        binding.tabLayout.visibility = View.GONE
+    override fun setMenuVisibility(menuVisible: Boolean) {
+        super.setMenuVisibility(menuVisible)
+        if (menuVisible) {
+            (activity as? MainActivity)?.goBack(false)
+            (activity as? MainActivity)?.displaySetting(false)
+        }
     }
 
     override fun onDestroyView() {
