@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.navigation_notifications -> {
+                if (binding.viewpager.currentItem == 2) return@OnItemSelectedListener true
                 binding.viewpager.currentItem = 2
                 displayContent()
                 true
@@ -61,17 +62,19 @@ class MainActivity : AppCompatActivity() {
             )
             btnBack.setOnClickListener {
                 if (viewpager.currentItem == 2 &&
-                    supportFragmentManager.findFragmentByTag("noty") != null
+                    supportFragmentManager.backStackEntryCount > 0
                 ) {
                     supportFragmentManager.popBackStack()
                     displayContent(true)
                     goBack(false)
                     displaySetting(true)
+                    isNotifyScreenLast = true
                     return@setOnClickListener
                 }
                 (frgments[viewpager.currentItem] as? DashboardFragment)?.onBackPress()
             }
             btnSetting.setOnClickListener {
+                isNotifyScreenLast = false
                 displaySettingScreen(true)
             }
 
@@ -93,12 +96,13 @@ class MainActivity : AppCompatActivity() {
     fun displaySetting(isVisible: Boolean = true) {
         binding.btnSetting.isVisible = isVisible
     }
+    private var isNotifyScreenLast = true
 
     fun displaySettingScreen(
         isOpenSettingScreen: Boolean = binding.viewpager.currentItem == 2 &&
                 supportFragmentManager.backStackEntryCount > 0
     ) {
-        if (!isOpenSettingScreen) return
+        if (!isOpenSettingScreen || isNotifyScreenLast) return
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frl_content, NotificationsFragment(), "noty")

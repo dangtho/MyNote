@@ -88,17 +88,25 @@ class DashboardFragment(val url: String = "https://www.google.com/") : Fragment(
             view: WebView?,
             request: WebResourceRequest?
         ): Boolean {
-            (activity as? MainActivity)?.goBack(view?.canGoBack() ?: false)
+
             return super.shouldOverrideUrlLoading(view, request)
+        }
+
+        override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
+            super.doUpdateVisitedHistory(view, url, isReload)
+            (activity as? MainActivity)?.goBack(view?.canGoBack() ?: false)
         }
     }
 
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
-        if (menuVisible && !isResumed) {
+        if (menuVisible && !isResumed && (parentFragment as? HomeFragment) == null) {
             (activity as? MainActivity)?.goBack(binding.webView.canGoBack())
             (activity as? MainActivity)?.displaySetting(binding.webView.url == MainActivity.STACK_OVER_FLOW)
             (activity as? MainActivity)?.displaySettingScreen()
+        } else if ((parentFragment as? HomeFragment) != null){
+            (activity as? MainActivity)?.goBack(false)
+            (activity as? MainActivity)?.displaySetting(false)
         }
     }
 
